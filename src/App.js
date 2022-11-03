@@ -5,26 +5,11 @@ import './style/App.scss';
 
 function App() {
   const [pageStart, setPageStart] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [questions, setQuestions] = useState([]);
 
-  // const getQuestions = () => {
-  //   const [questions, setQuestions] = useState([]);
-
-  //   useEffect(() => {
-  //     async function fetchQuestions() {
-  //       const response = await fetch('https://opentdb.com/api.php?amount=10&category=15&difficulty=easy');
-  //       response = await response.json();
-  //       setQuestions(response);
-  //     }
-  //     fetchQuestions();
-  //   }, []);
-  //   return console.log(JSON.stringify(questions));
-  // };
-
-  // getQuestions();
-
   useEffect(() => {
-    fetch('https://opentdb.com/api.php?amount=10&category=15&difficulty=easy')
+    fetch('https://opentdb.com/api.php?amount=10&category=9&type=multiple')
       .then((res) => res.json())
       .then((json) => {
         setQuestions(json.results);
@@ -36,18 +21,15 @@ function App() {
   }, []);
 
 
-
-
-
-
   const openPageStart = () => {
     setPageStart(true);
   };
 
   return (
     <div className="App">
-
-      {pageStart ? <QuizPage questions={questions} setQuestions={setQuestions} /> : <StartPage openPageStart={openPageStart} />}
+      <div className="wrapper">
+        {pageStart ? <QuizPage questions={questions} setQuestions={setQuestions} /> : <StartPage openPageStart={openPageStart} />}
+      </div>
     </div>
   );
 }
