@@ -1,0 +1,27 @@
+.end-div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px auto;
+  gap: 20px;
+  & .check {
+    padding: 16px 28px;
+    border: none;
+    border-radius: 12px;
+    background-color: rgb(77, 91, 158);
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s all;
+
+    &:hover,
+    &:active {
+      background-color: #3c477b;
+    }
+  }
+
+  & .score {
+    text-align: center;
+    color: #293264;
+  }
+}

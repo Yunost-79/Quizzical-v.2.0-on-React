@@ -3,11 +3,10 @@ import React, { useState, useEffect } from 'react';
 import './App.scss';
 import Menu from './components/Menu';
 import Question from './components/Question';
-
-import yellowBlob from './image/yellow-blob.svg';
-import blueBlob from './image/blue-blob.svg';
+import Blobs from './components/Blobs';
 
 import { nanoid } from 'nanoid';
+import StartContainer from './components/StartContainer';
 
 function App() {
   const [started, setStarted] = useState(false);
@@ -40,7 +39,6 @@ function App() {
     getQuestions();
   }, [count]);
 
-  console.log(questions);
 
   const handleCheck = () => {
     let selected = true;
@@ -89,35 +87,27 @@ function App() {
     : [];
 
   const start = () => {
-    setStarted((x) => !x);
+    setStarted((prevState) => !prevState);
   };
 
   return (
-    <>
-      <div className="App">
-        <div className="main-contaniner">
-          {started ? (
-            <div className="start-content-conteiner">
-              {questionElement}
-              <div className="end-div">
-                {checked && <span className="score">You scored {correct}/5 answers</span>}
-                <button className="check" onClick={checked ? handlePlayAgaine : handleCheck}>
-                  {checked ? 'Play Againe' : 'Check Answer'}
-                </button>
-              </div>
-            </div>
-          ) : (
-            <Menu start={start} />
-          )}
+    <div className="App">
+      <div className="main-contaniner">
+        {started ? (
+          <StartContainer
+            questionElement={questionElement}
+            checked={checked}
+            correct={correct}
+            handlePlayAgaine={handlePlayAgaine}
+            handleCheck={handleCheck}
+          />
+        ) : (
+          <Menu start={start} />
+        )}
 
-          <div className="content-container"></div>
-          <div className="blob">
-            <img src={yellowBlob} className="yellow-blob" />
-            <img src={blueBlob} className="blue-blob" />
-          </div>
-        </div>
+        <Blobs />
       </div>
-    </>
+    </div>
   );
 }
 
